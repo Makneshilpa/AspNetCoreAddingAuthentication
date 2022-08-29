@@ -34,24 +34,17 @@ namespace WishList.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model);
-           var result= _userManager.CreateAsync(new ApplicationUser() { Email = model.Email, UserName = model.Email }, model.password).Result;
-           if(!result.Succeeded)
+            var result = _userManager.CreateAsync(new ApplicationUser() { Email = model.Email, UserName = model.Email }, model.password).Result;
+            if (!result.Succeeded)
             {
-                foreach(var error in result.Errors)
+                foreach (var error in result.Errors)
                 {
-                    ModelState.AddModelError("password",error.Description);
+                    ModelState.AddModelError("password", error.Description);
                 }
-                return View (model);
+                return View(model);
             }
             return RedirectToAction("Index", "Home");
 
-        }
-
-        
-
-        
-        
-           
-            
+        }      
     }
 }
